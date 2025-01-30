@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import styles from "./page.module.css";
 
@@ -6,27 +7,19 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          src="/phonepe.svg"
+          alt="PhonePe logo"
+          width={360}
+          height={76}
           priority
         />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <p style={{ textAlign: "center" }}>
+          PhonePe Payment Integration Testing
+        </p>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <div className={styles.ctas} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {/* <button className={styles.primary} onClick={() => handlePay(1)}> */}
+          <a className={styles.primary}>
             <Image
               className={styles.logo}
               src="/vercel.svg"
@@ -34,60 +27,35 @@ export default function Home() {
               width={20}
               height={20}
             />
-            Deploy now
+              Pay ₹1
           </a>
           <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="https://medium.com/@guptagunal/how-to-integrate-the-phonepe-payment-gateway-in-your-next-js-application-046b14c38793"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.secondary}
           >
-            Read our docs
+            Read Tutorial
           </a>
         </div>
       </main>
       <footer className={styles.footer}>
+        <p>
+          &copy; Arun A J | All rights reserved
+        </p>
         <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          href="https://arunaj.co"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Image
             aria-hidden
             src="/globe.svg"
-            alt="Globe icon"
+            alt="Internet icon"
             width={16}
             height={16}
           />
-          Go to nextjs.org →
+          arunaj.co
         </a>
       </footer>
     </div>
