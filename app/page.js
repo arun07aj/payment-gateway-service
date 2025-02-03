@@ -1,8 +1,23 @@
 "use client"
 import Image from "next/image";
 import styles from "./page.module.css";
+import { initiatePayment } from "@/actions/initiatePayment";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  
+  const handlePay = async (data) => {
+    try {
+      const result = await initiatePayment(data);
+      if (result) {
+        router.push(result.redirectUrl);
+      }
+    } catch (error) {
+      console.error("Error processing payment:", error);
+    }
+  };
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -17,8 +32,7 @@ export default function Home() {
           PhonePe Payment Integration Testing
         </p>
 
-        <div className={styles.ctas} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {/* <button className={styles.primary} onClick={() => handlePay(1)}> */}
+        <div className={styles.ctas} onClick={() => handlePay(1)} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <a className={styles.primary}>
             <Image
               className={styles.logo}
