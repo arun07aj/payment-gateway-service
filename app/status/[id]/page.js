@@ -17,7 +17,7 @@ const StatusPage = () => {
   const fetchStatus = async () => {
     try {
       const response = await axios.post("/api/status", { id: params?.id });
-      console.log("Status API response: ", response);
+      console.log("Status API response:\n", response);
       setStatus(response.data.status);
 
       toast.success(

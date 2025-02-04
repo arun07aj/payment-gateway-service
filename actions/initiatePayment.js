@@ -4,9 +4,8 @@ import sha256 from "crypto-js/sha256";
 import axios from "axios";
 
 export async function initiatePayment(data) {
-  console.log("initiating payment..")
   const transactionId = "Tr-" + uuidv4().toString().slice(-6); 
-  console.log("transactionId: " + transactionId)
+  console.log("Initiating payment for ID: " + transactionId)
 
   const payload = {
     merchantId: process.env.NEXT_PUBLIC_MERCHANT_ID,
@@ -21,8 +20,6 @@ export async function initiatePayment(data) {
     },
   };
 
-  console.log("payload: " + payload + "\nmerchantId: " + payload.merchantId + "\nmerchantUserId: " + payload.merchantUserId)
-
   const dataPayload = JSON.stringify(payload);
   const dataBase64 = Buffer.from(dataPayload).toString("base64");
 
@@ -32,7 +29,6 @@ export async function initiatePayment(data) {
   const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
 
   const UAT_PAY_API_URL = `${process.env.NEXT_PUBLIC_PHONE_PAY_HOST_URL}/pg/v1/pay`;
-  console.log("PAY_API: ", UAT_PAY_API_URL)
 
   try {
     const response = await axios.post(
@@ -47,7 +43,7 @@ export async function initiatePayment(data) {
       }
     );
 
-    console.log("Pay API response: ", response)
+    console.log("Pay API response:\n", response)
 
     return {
       redirectUrl: response.data.data.instrumentResponse.redirectInfo.url,

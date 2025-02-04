@@ -4,14 +4,12 @@ import axios from "axios";
 
 export async function POST(req) {
   try {
-    console.log("Inside route.js...")
     const { id } = await req.json();
     const merchantId = process.env.NEXT_PUBLIC_MERCHANT_ID;
     const transactionId = id;
     const st = `/pg/v1/status/${merchantId}/${transactionId}` + process.env.NEXT_PUBLIC_SALT_KEY;
     const dataSha256 = sha256(st).toString();
     const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
-    console.log("Checksum for status: ", checksum);
 
     const options = {
       method: "GET",
@@ -25,7 +23,7 @@ export async function POST(req) {
     };
 
     const response = await axios.request(options);
-    console.log("Check status response from route.js: ", response);
+    console.log("Check Status response:\n", response);
 
     if (response.data.code === "PAYMENT_SUCCESS") {
       return NextResponse.json(
