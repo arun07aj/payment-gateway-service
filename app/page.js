@@ -7,6 +7,10 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
   
+  const getRandomIntAmount = () => {
+    return Math.floor(Math.random() * (1500 - 10 + 1)) + 10;
+  };
+
   const handlePay = async (data) => {
     try {
       const result = await initiatePayment(data);
@@ -29,11 +33,11 @@ export default function Home() {
           priority
         />
         <p style={{ textAlign: "center" }}>
-          PhonePe Payment Integration Testing
+          Payment Integration Testing
         </p>
 
-        <div className={styles.ctas} onClick={() => handlePay(1)} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <a className={styles.primary}>
+        <div className={styles.ctas} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <a className={styles.primary} onClick={() => handlePay(getRandomIntAmount())} style={{ marginRight: "20px" }}>
             <Image
               className={styles.logo}
               src="/vercel.svg"
@@ -41,7 +45,7 @@ export default function Home() {
               width={20}
               height={20}
             />
-              Pay ₹1
+              Pay (PhonePe)
           </a>
           <a
             href="https://medium.com/@guptagunal/how-to-integrate-the-phonepe-payment-gateway-in-your-next-js-application-046b14c38793"
