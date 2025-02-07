@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import styles from "./page.module.css";
-import { initiatePayment } from "@/actions/initiatePayment";
+import { initiatePhonePePayment } from "@/actions/initiatePhonePePayment";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -11,9 +11,9 @@ export default function Home() {
     return Math.floor(Math.random() * (1500 - 10 + 1)) + 10;
   };
 
-  const handlePay = async (data) => {
+  const handlePhonePeTx = async (data) => {
     try {
-      const result = await initiatePayment(data);
+      const result = await initiatePhonePePayment(data);
       if (result) {
         router.push(result.redirectUrl);
       }
@@ -37,7 +37,7 @@ export default function Home() {
         </p>
 
         <div className={styles.ctas} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <a className={styles.primary} onClick={() => handlePay(getRandomIntAmount())} style={{ marginRight: "20px" }}>
+          <a className={styles.primary} onClick={() => handlePhonePeTx(getRandomIntAmount())} style={{ marginRight: "20px" }}>
             <Image
               className={styles.logo}
               src="/vercel.svg"
