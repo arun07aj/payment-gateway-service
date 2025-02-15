@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import sha256 from "crypto-js/sha256";
 import axios from "axios";
 
-export async function POST(req) {
+export async function POST(req: NextRequest) : Promise<NextResponse> {
   try {
     const { id } = await req.json();
     const merchantId = process.env.NEXT_PUBLIC_MERCHANT_ID;

@@ -11,7 +11,7 @@ export default function Home() {
     return Math.floor(Math.random() * (1500 - 10 + 1)) + 10;
   };
 
-  const handlePhonePeTx = async (data) => {
+  const handlePhonePeTx = async (data: number) => {
     try {
       const result = await initiatePhonePePayment(data);
       if (result) {

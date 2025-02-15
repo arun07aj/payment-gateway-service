@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,7 +25,9 @@ const StatusPage = () => {
       );
     } catch (error) {
       const errorMessage =
-        error.response?.data?.message || error.message || "Something went wrong.";
+        error instanceof AxiosError
+          ? error.response?.data?.message || error.message
+          : 'Something went wrong while fetching payment status.';
       setError(errorMessage);
     } finally {
       setLoading(false);

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import sha256 from "crypto-js/sha256";
 import axios from "axios";
 
-export async function initiatePhonePePayment(data) {
+export async function initiatePhonePePayment(data: number) {
   const transactionId = "Tr-" + uuidv4().toString().slice(-6); 
   console.log("Initiating payment for ID: " + transactionId)
 
