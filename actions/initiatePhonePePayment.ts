@@ -11,10 +11,10 @@ export async function initiatePhonePePayment(data: number) {
     merchantId: process.env.NEXT_PUBLIC_MERCHANT_ID,
     merchantTransactionId: transactionId,
     merchantUserId: "MUID-" + uuidv4().toString().slice(-6),
-    amount: 100 * data,
+    amount: 100 * data, // amount in Paise
     redirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/status/${transactionId}`,
     redirectMode: "REDIRECT",
-    callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/status/${transactionId}`,
+    callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/callback`,
     paymentInstrument: {
       type: "PAY_PAGE",
     },
@@ -43,7 +43,7 @@ export async function initiatePhonePePayment(data: number) {
       }
     );
 
-    console.log("Pay API response:\n", response)
+    //console.log("Pay API response:\n", response)
 
     return {
       redirectUrl: response.data.data.instrumentResponse.redirectInfo.url,
