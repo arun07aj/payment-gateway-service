@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { initiatePhonePePayment } from "@/actions/initiatePhonePePayment";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function Home() {
   const router = useRouter();
@@ -19,6 +20,16 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error processing payment:", error);
+    }
+  };
+
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get("/api/transactions");
+      console.log("All Transactions:", response.data);
+      alert("Check console for transaction data!");
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
     }
   };
 
@@ -47,13 +58,8 @@ export default function Home() {
             />
               Pay (PhonePe)
           </a>
-          <a
-            href="https://medium.com/@guptagunal/how-to-integrate-the-phonepe-payment-gateway-in-your-next-js-application-046b14c38793"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read Tutorial
+          <a className={styles.primary} onClick={fetchTransactions}>
+            Fetch Transactions
           </a>
         </div>
       </main>
