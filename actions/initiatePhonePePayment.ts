@@ -43,6 +43,7 @@ export async function initiatePhonePePayment(data: number) {
       }
     );
 
+    console.log("PAY API response code for Tx-ID: " + transactionId + ":- " + response.data.code)
     //console.log("Pay API response:\n", response)
 
     return {

@@ -40,6 +40,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     // Store Transaction in Temp DB
     await saveTransactionStatus(transactionData.data.transactionId, transactionData.code);
+    console.log("Tx status received from callback for " + transactionData.data.transactionId + " has been saved to DB")
 
     return NextResponse.json({ success: true }, { status: 200 });
 

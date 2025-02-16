@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) : Promise<NextResponse> {
     // fetch status from DB, if exists
     const dbStatus = await getTransactionStatus(id);
     if (dbStatus) {
+      console.log("data exists for " + id + " and fetched from DB, dbStatus: " + dbStatus)
       return NextResponse.json({ status: dbStatus, transactionId: id }, { status: 200 });
     }
 
@@ -31,10 +32,12 @@ export async function POST(req: NextRequest) : Promise<NextResponse> {
 
     const response = await axios.request(options);
     //console.log("Check Status response:\n", response);
+    console.log("Check Status API response code and state for Tx-ID: " + id + ":- " + response.data.code + ", " + response.data.data.state)
 
     if (response.data.code === "PAYMENT_SUCCESS") {
       await saveTransactionStatus(id, "PAYMENT_SUCCESS");
-      
+      console.log("Tx status fetched from Check Status API for " + id + " has been saved to DB")
+
       return NextResponse.json(
         {
           status: response.data.code,
@@ -43,6 +46,7 @@ export async function POST(req: NextRequest) : Promise<NextResponse> {
         { status: 200 }
       );
     } else {
+      console.log("Tx status received for " + id + " is FAIL")
       return NextResponse.json(
         {
           status: "FAIL",
