@@ -36,13 +36,16 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          src="/phonepe.svg"
-          alt="PhonePe logo"
-          width={360}
-          height={76}
-          priority
-        />
+        <div className="flex justify-center">
+          <Image
+            src="/phonepe.svg"
+            alt="PhonePe logo"
+            width={360}
+            height={76}
+            priority
+          />
+        </div>
+        
         <p style={{ textAlign: "center" }}>
           Payment Integration Testing
         </p>

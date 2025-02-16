@@ -17,12 +17,15 @@ const StatusPage = () => {
   const fetchStatus = async () => {
     try {
       const response = await axios.post("/api/status", { id: params?.id });
-      console.log("Status API response:\n", response);
+      //console.log("Status API response:\n", response);
       setStatus(response.data.status);
 
-      toast.success(
-        `Transaction Status: ${response.data.status}, Transaction ID: ${response.data.transactionId}`
-      );
+      if (response.data.status === "PAYMENT_SUCCESS") {
+        toast.success(`Payment Success for Transaction ID: ${response.data.transactionId}`);
+      } else {
+        toast.error(`Transaction Failed for Transaction ID: ${response.data.transactionId}`);
+      }
+
     } catch (error) {
       const errorMessage =
         error instanceof AxiosError
@@ -43,13 +46,16 @@ const StatusPage = () => {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image src="/phonepe.svg" alt="PhonePe logo" width={360} height={76} priority />
+        <div className="flex justify-center">
+          <Image src="/phonepe.svg" alt="PhonePe logo" width={360} height={76} priority />
+        </div>
+
         <p style={{ textAlign: "center" }}>PhonePe Payment Status</p>
 
         {loading ? (
           <div className="flex justify-center items-center space-x-2">
             <div className="w-8 h-8 border-4 border-t-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-lg text-gray-700">Loading...</p>
+            <p style={{ textAlign: "center" }} className="text-lg text-gray-700">Checking Payment Status...</p>
           </div>
         ) : error ? (
           <div className="text-center">
@@ -69,13 +75,20 @@ const StatusPage = () => {
             </button>
           </div>
         ) : (
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-800">
-              Status: {status ? status : "No status available"}
-            </h1>
+          <div>
+            {status === "PAYMENT_SUCCESS" ? (
+              <p style={{ textAlign: "center", fontWeight: "bold" }}>TRANSACTION SUCCESSFUL✅</p>
+            ) : (
+              <p style={{ textAlign: "center", fontWeight: "bold" }}>TRANSACTION FAILED❌</p>
+            )}
+
+            <div className="flex justify-center mt-4">
             <Link href="/" passHref>
               <button className={styles.primary}>Back</button>
-            </Link>
+            </Link> 
+            </div>
+
+
           </div>
         )}
       </main>
